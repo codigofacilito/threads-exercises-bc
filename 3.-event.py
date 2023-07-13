@@ -27,7 +27,7 @@ class BankFacilito:
     def withdraw(self):
         for _ in range(1_000_000):
             with lock:
-                self.balance += 1
+                self.balance -= 1
 
 
 def loading(event):
