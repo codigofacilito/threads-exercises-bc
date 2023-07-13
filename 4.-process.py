@@ -14,13 +14,15 @@ def fibonnaci(number):
 
 start = time.time()
 
-a = Process(target=lambda: print(fibonnaci(41)) )
-b = Process(target=lambda: print(fibonnaci(42)) )
+if __name__ == '__main__':
 
-a.start()
-b.start()
+    a = Process(target=print(fibonnaci(30)))
+    b = Process(target=print(fibonnaci(31)))
 
-a.join()
-b.join()
+    a.start()
+    b.start()
 
-print(time.time()- start)
+    a.join()
+    b.join()
+
+    print(time.time()- start)
