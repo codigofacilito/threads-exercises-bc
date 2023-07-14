@@ -20,7 +20,8 @@ def get_pokemon_by_id(pokemon_id):
 def print_name(pokemon_id):
     name = get_pokemon_by_id(pokemon_id)
     logging.info(name)
-
+    
+   
 
 for i in range(1, 101):
     thread = Thread(

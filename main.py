@@ -1,42 +1,38 @@
 import time
-from threading import Thread
-from multiprocessing import Process
+import asyncio
 
-def fibonnaci(number):
-
-    if number == 1:
-        return 0
-
-    if number == 2:
-        return 1
-    
-    return fibonnaci(number - 1) + fibonnaci(number - 2)
+async def cooking_pizza_a():
+    print("Cooking pizza A")
+    await asyncio.sleep(2)
+    print("Finish pizza A")
 
 
-def is_prime(number):
-    if number < 2:
-        return False
-    
-    # for x in range(2, int(number ** 0.5) + 1):
-    for x in range(2, number):
-        if number % x == 0:
-            return False
-    
-    return True
-    
-
-start = time.time()
-
-tasks = []
-numbers = [174440041, 3657500101, 88362852307, 414507281407, 2428095424619, 4952019383323, 12055296811267, 17461204521323, 28871271685163, 53982894593057]
-
-for number in numbers:
-    thread = Process(target=lambda: print(is_prime(number)))
-    thread.start()
-    tasks.append(thread)
+async def cooking_pizza_b():
+    print("Cooking pizza B")
+    await asyncio.sleep(2)
+    print("Finish pizza B")
 
 
-for task in tasks:
-    task.join()
+async def cooking_pizza_c():
+    print("Cooking pizza C")
+    await asyncio.sleep(2)
+    print("Finish pizza C")
 
-print(time.time()- start)
+
+async def main():
+    start = time.time()
+
+    print(">>> Comenzamos la Elaboración de pizzas.")
+
+    asyn_tasks = [ asyncio.create_task( task() ) for task in [ cooking_pizza_a, cooking_pizza_b, cooking_pizza_c]]
+
+    await asyncio.gather(*asyn_tasks)
+
+    print("Hora de comer.")
+    print(time.time() - start)
+
+
+asyncio.run( 
+    main()
+)
+
